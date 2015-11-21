@@ -25,7 +25,7 @@ public class MainActivity extends Activity implements CardReader.AccountCallback
 
     @Override
     public void onAccountReceived() {
-        NetworkClient networkClient = new NetworkClient(getApplicationContext());
+        NetworkClient networkClient = new NetworkClient(this);
         Thread networkClientThread = new Thread(networkClient);
         networkClientThread.start();
     }
