@@ -1,29 +1,30 @@
 package com.ab95.hackapella_pos;
 
+import android.app.Activity;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity implements CardReader.AccountCallback {
+
+    public static int READER_FLAGS =
+            NfcAdapter.FLAG_READER_NFC_A | NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK;
+    public CardReader cardReader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        cardReader = new CardReader(this);
+
+        NfcAdapter nfc = NfcAdapter.getDefaultAdapter(this);
+        if (nfc != null) {
+            nfc.enableReaderMode(this, cardReader, READER_FLAGS, null);
+        }
     }
+
+    @Override
+    public void onAccountReceived(final String account) {}
 
 }
