@@ -6,12 +6,51 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context="com.ab95.hackapella_pos.MainActivity"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:baselineAligned="false">
 
-    <TextView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Reading Card"
+            android:id="@+id/textView"
+            android:layout_marginBottom="87dp"
+            android:layout_above="@+id/textView2"
+            android:layout_alignEnd="@+id/textView2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Processing..."
+            android:id="@+id/textView2"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Successful Transaction"
+            android:id="@+id/textView3"
+            android:layout_below="@+id/textView2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp" />
+
+    </RelativeLayout>
+
+    <ZoomControls
         android:layout_width="wrap_content"
-        android:layout_height="102dp"
-        android:text="Hello world"
-        android:id="@+id/textView"
-        android:layout_weight="0.33"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/zoomControls"
+        android:layout_weight="1" />
 </LinearLayout>
+
+
