@@ -3,6 +3,8 @@ package com.ab95.hackapella_pos;
 import android.app.Activity;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity extends Activity implements CardReader.AccountCallback {
 
@@ -25,8 +27,20 @@ public class MainActivity extends Activity implements CardReader.AccountCallback
 
     @Override
     public void onAccountReceived() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ((TextView)MainActivity.this.findViewById(R.id.reading)).setText("Reading card...");
+            }
+        });
         NetworkClient networkClient = new NetworkClient(this);
         Thread networkClientThread = new Thread(networkClient);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                MainActivity.this.findViewById(R.id.processing).setVisibility(View.VISIBLE);
+            }
+        });
         networkClientThread.start();
     }
 

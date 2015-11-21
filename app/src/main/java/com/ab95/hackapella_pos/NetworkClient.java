@@ -7,6 +7,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -52,6 +54,7 @@ public class NetworkClient implements Runnable{
 
     @Override
     public void run() {
+        byte result = '0';
         try {
             activity.runOnUiThread(new Runnable() {
                 @Override
@@ -71,9 +74,30 @@ public class NetworkClient implements Runnable{
             }
 
             send(locationToString(location));
+
+            result = dataInputStream.readByte();
+
+            if (result == '1') {
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        activity.findViewById(R.id.done).setVisibility(View.VISIBLE);
+                    }
+                });
+            }
         }
         catch (IOException e) {
             Log.e("NetworkClient", e.getMessage());
+        }
+        if (result != '1') {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    TextView textView = (TextView) activity.findViewById(R.id.done);
+                    textView.setText("Transaction Failed");
+                    textView.setVisibility(View.VISIBLE);
+                }
+            });
         }
     }
 
