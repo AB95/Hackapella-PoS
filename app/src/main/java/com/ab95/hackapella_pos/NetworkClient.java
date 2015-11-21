@@ -57,6 +57,7 @@ public class NetworkClient implements Runnable{
                 @Override
                 public void run() {
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
                 }
             });
             socket = new Socket("10.83.3.175", 7000);
