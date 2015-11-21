@@ -15,8 +15,8 @@ import java.net.Socket;
 
 public class NetworkClient implements Runnable{
     Socket socket;
-    DataInputStream inputStream;
-    DataOutputStream outputStream;
+    DataInputStream dataInputStream;
+    DataOutputStream dataOutputStream;
     LocationManager locationManager;
     LocationListener locationListener;
     Location location;
@@ -62,8 +62,8 @@ public class NetworkClient implements Runnable{
             });
             socket = new Socket("10.83.3.175", 7000);
             Log.i("Network", "connected");
-            inputStream = new DataInputStream(socket.getInputStream());
-            outputStream = new DataOutputStream(socket.getOutputStream());
+            dataInputStream = new DataInputStream(socket.getInputStream());
+            dataOutputStream = new DataOutputStream(socket.getOutputStream());
 
             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             if (location == null) {
@@ -79,7 +79,7 @@ public class NetworkClient implements Runnable{
 
     private void send(String string) {
         try {
-            outputStream.write(string.getBytes());
+            dataOutputStream.write(string.getBytes());
             Log.i("Network", "sent");
         }
         catch (IOException | NullPointerException e) {
