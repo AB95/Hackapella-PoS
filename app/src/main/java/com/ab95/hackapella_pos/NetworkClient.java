@@ -66,6 +66,9 @@ public class NetworkClient implements Runnable{
             outputStream = new DataOutputStream(socket.getOutputStream());
 
             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location == null) {
+                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            }
 
             send(locationToString(location));
         }
