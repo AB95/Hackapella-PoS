@@ -10,7 +10,7 @@ public class CardReader implements NfcAdapter.ReaderCallback {
     private WeakReference<AccountCallback> accountCallback;
 
     public interface AccountCallback {
-        void onAccountReceived(String account);
+        void onAccountReceived();
     }
 
     public CardReader(AccountCallback accountCallback) {
@@ -20,6 +20,6 @@ public class CardReader implements NfcAdapter.ReaderCallback {
     @Override
     public void onTagDiscovered(Tag tag) {
         Log.i("Tag", "Tag");
-        accountCallback.get().onAccountReceived("hi");
+        accountCallback.get().onAccountReceived();
     }
 }
