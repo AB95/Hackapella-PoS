@@ -55,6 +55,7 @@ public class NetworkClient implements Runnable{
         string += Double.toString(location.getLongitude());
         string += ",";
         string += Long.toString(location.getTime());
+        string += ",";
         return string;
     }
 
