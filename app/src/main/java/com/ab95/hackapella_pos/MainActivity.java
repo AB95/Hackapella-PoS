@@ -30,7 +30,7 @@ public class MainActivity extends Activity implements CardReader.AccountCallback
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ((TextView)MainActivity.this.findViewById(R.id.reading)).setText("Reading card...");
+                ((TextView) MainActivity.this.findViewById(R.id.reading)).setText("Reading card...");
             }
         });
         NetworkClient networkClient = new NetworkClient(this);
@@ -42,6 +42,12 @@ public class MainActivity extends Activity implements CardReader.AccountCallback
             }
         });
         networkClientThread.start();
+    }
+
+    public void resetText() {
+        ((TextView) this.findViewById(R.id.reading)).setText("Waiting for card...");
+        this.findViewById(R.id.processing).setVisibility(View.INVISIBLE);
+        this.findViewById(R.id.done).setVisibility(View.INVISIBLE);
     }
 
 }

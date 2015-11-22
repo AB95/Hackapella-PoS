@@ -22,10 +22,10 @@ public class NetworkClient implements Runnable{
     LocationManager locationManager;
     LocationListener locationListener;
     Location location;
-    Activity activity;
+    MainActivity activity;
 
     public NetworkClient(Activity activity) {
-        this.activity = activity;
+        this.activity = (MainActivity) activity;
 
         locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
 
@@ -81,7 +81,9 @@ public class NetworkClient implements Runnable{
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        activity.findViewById(R.id.done).setVisibility(View.VISIBLE);
+                        TextView textView = (TextView) activity.findViewById(R.id.done);
+                        textView.setText("Transaction Successful");
+                        textView.setVisibility(View.VISIBLE);
                     }
                 });
             }
@@ -99,6 +101,18 @@ public class NetworkClient implements Runnable{
                 }
             });
         }
+        try {
+            Thread.sleep(5000);
+        }
+        catch (InterruptedException e) {
+            Log.e("NetworkClient", e.getMessage());
+        }
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                activity.resetText();
+            }
+        });
     }
 
     private void send(String string) {
